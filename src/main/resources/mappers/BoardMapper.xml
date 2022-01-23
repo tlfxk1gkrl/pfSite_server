@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.BoardMapper">
+    <sql id="boardColumns">
+        ID,
+        TITLE,
+        TOOL,
+        PERIOD,
+        SUB
+    </sql>
+
+    <insert id="insertBoard" parameterType="boardDTO">
+        INSERT INTO TB_BOARD(
+        TITLE,
+        TOOL,
+        PERIOD,
+        SUB
+        )VALUES(
+        #{title},
+        #{tool},
+        #{period},
+        #{sub}
+        )
+    </insert>
+
+    <select id="selectBoardDetail" parameterType="Integer" resultType="boardDTO">
+        SELECT
+        <include refid="boardColumns"/>
+        FROM
+        TB_BOARD
+        WHERE
+        ID = #{id}
+    </select>
+
+    <update id="updateBoard" parameterType="boardDTO">
+        UPDATE
+        TB_BOARD
+        SET
+        name
+        WHERE
+        id=#{id}
+    </update>
+
+    <delete id="deleteBoard" parameterType="String">
+        DELETE
+        FROM
+        TB_BOARD
+        WHERE
+        id=#{id}
+    </delete>
+
+    <select id="selectBoardList" parameterType="boardDTO" resultType="boardDTO">
+        SELECT
+        <include refid="boardColumns"/>
+        FROM
+        TB_BOARD
+    </select>
+
+    <select id="selectBoardTotalCount" parameterType="boardDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        TB_BOARD
+    </select>
+</mapper>

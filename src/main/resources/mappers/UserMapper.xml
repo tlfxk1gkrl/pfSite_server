@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <sql id="userColumns">
+        id,
+        name
+    </sql>
+
+    <insert id="insertUser" parameterType="UserDTO">
+        INSERT INTO user(
+        <include refid="userColumns"/>
+        ) VALUES (
+            #{id},
+            #{name}
+        )
+    </insert>
+
+    <select id="selectUserDetail" parameterType="String" resultType="UserDTO">
+        SELECT
+            <include refid="userColumns" />
+        FROM
+            user
+        WHERE
+            id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="UserDTO">
+        UPDATE
+            user
+        SET
+            name
+        WHERE
+            id=#{id}
+    </update>
+    
+    <delete id="deleteUser" parameterType="String">
+        DELETE
+        FROM
+            user
+        WHERE
+            id=#{id}
+    </delete>
+
+    <select id="selectUserList" parameterType="userDTO" resultType="userDTO">
+        SELECT
+            <include refid="userColumns" />
+        FROM
+            user
+    </select>
+
+    <select id="selectUserTotalCount" parameterType="UserDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            user
+    </select>
+</mapper>
