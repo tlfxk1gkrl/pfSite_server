@@ -25,7 +25,7 @@ public class WorksController {
     //create
     @PostMapping("/file/upload")
     public boolean uploadFile(String title, String kind, String sub, List<MultipartFile> files) throws IllegalStateException, IOException {
-        String UPLOAD_PATH = "\\home\\ec2-user\\src\\" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
+        String UPLOAD_PATH = "/home/ec2-user/src/" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
         WorksDTO worksDTO = new WorksDTO();
         try {
             System.out.println((files.size()));
