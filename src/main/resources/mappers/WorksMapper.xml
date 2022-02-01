@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.WorksMapper">
+    <sql id="WorksColumns">
+        ID,
+        TITLE,
+        KIND,
+        SUB,
+        IMGLINK,
+        IMG_CNT
+    </sql>
+
+    <insert id="insertWorks" parameterType="worksDTO">
+        INSERT INTO TB_WORKS(
+        TITLE,
+        KIND,
+        SUB,
+        IMGLINK,
+        IMG_CNT
+        ) VALUES (
+        #{title},
+        #{kind},
+        #{sub},
+        #{imgLink},
+        #{imgCnt}
+        )
+    </insert>
+
+    <select id="selectWorksDetail" parameterType="Integer" resultType="worksDTO">
+        SELECT
+        <include refid="WorksColumns"/>
+        FROM
+        TB_WORKS
+        WHERE
+        ID = #{id}
+    </select>
+
+    <update id="updateWorks" parameterType="worksDTO">
+        UPDATE
+        TB_WORKS
+        SET
+        TITLE,
+        KIND,
+        SUB,
+        IMGLINK,
+        IMG_CNT
+        WHERE
+        ID=#{id}
+    </update>
+
+    <delete id="deleteWorks" parameterType="String">
+        DELETE
+        FROM
+        TB_WORKS
+        WHERE
+        ID=#{id}
+    </delete>
+
+    <select id="selectWorksList" parameterType="WorksDTO" resultType="worksDTO">
+        SELECT
+        <include refid="WorksColumns"/>
+        FROM
+        TB_WORKS
+    </select>
+
+    <select id="selectWorksTotalCount" parameterType="WorksDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        TB_WORKS
+    </select>
+</mapper>

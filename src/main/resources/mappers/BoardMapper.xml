@@ -38,7 +38,7 @@
         SET
         name
         WHERE
-        id=#{id}
+        ID=#{id}
     </update>
 
     <delete id="deleteBoard" parameterType="String">
@@ -46,7 +46,7 @@
         FROM
         TB_BOARD
         WHERE
-        id=#{id}
+        ID=#{id}
     </delete>
 
     <select id="selectBoardList" parameterType="boardDTO" resultType="boardDTO">
