@@ -72,7 +72,7 @@ public class WorksController {
         String[] files = new File(DATA_DIRECTORY).list();
 
         InputStream imageStream = new FileInputStream(
-                DATA_DIRECTORY +"\\"+ files[number]);
+                DATA_DIRECTORY +"/"+ files[number]);
 
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int read;
