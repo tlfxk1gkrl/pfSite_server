@@ -58,7 +58,7 @@
 
     <select id="selectWorksList" parameterType="WorksDTO" resultType="worksDTO">
         SELECT
-        <include refid="WorksColumns"/>
+        ID
         FROM
         TB_WORKS
     </select>
