@@ -62,7 +62,7 @@ public class WorksController {
     }
     //list
     @GetMapping("/file")
-    public List<WorksDTO> getFileList() throws IllegalStateException, IOException{
+    public List<Object> getFileList() throws IllegalStateException, IOException{
         return worksService.getWorksList();
     }
 
