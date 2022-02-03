@@ -65,7 +65,14 @@ public class WorksController {
     public List<WorksDTO> getFileList() throws IllegalStateException, IOException{
         return worksService.getWorksList();
     }
+
     //read
+    @GetMapping("/file/{id}")
+    public WorksDTO getFile(@PathVariable("id") Integer id) throws IllegalStateException{
+        return worksService.getWorksDetail(id);
+    }
+
+    //read img
     @GetMapping(value = "file/{id}/{number}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> userSearch(@PathVariable("id") Integer id, @PathVariable("number") Integer number) throws IOException {
         String DATA_DIRECTORY = worksService.getWorksDetail(id).getImgLink();
