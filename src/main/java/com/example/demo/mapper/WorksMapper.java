@@ -12,6 +12,6 @@ public interface WorksMapper {
     public WorksDTO selectWorksDetail(Integer id);
     public int updateWorks(WorksDTO params);
     public int deleteWorks(Integer id);
-    public List<Integer> selectWorksList();
+    public List<Object> selectWorksList();
     public int selectWorksTotalCount();
 }

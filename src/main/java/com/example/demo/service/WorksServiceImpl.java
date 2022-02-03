@@ -36,7 +36,7 @@ public class WorksServiceImpl implements WorksService{
     }
 
     @Override
-    public List<Integer> getWorksList() {
+    public List<Object> getWorksList() {
         return WorksMapper.selectWorksList();
     }
 }

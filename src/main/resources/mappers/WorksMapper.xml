@@ -56,7 +56,7 @@
         ID=#{id}
     </delete>
 
-    <select id="selectWorksList" parameterType="WorksDTO" resultType="worksDTO">
+    <select id="selectWorksList" parameterType="WorksDTO" resultType="int">
         SELECT
         ID
         FROM

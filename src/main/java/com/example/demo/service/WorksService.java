@@ -8,5 +8,5 @@ public interface WorksService {
     public boolean registerWorks(WorksDTO params);
     public WorksDTO getWorksDetail(Integer id);
     public boolean deleteWorks(Integer id);
-    public List<Integer> getWorksList();
+    public List<Object> getWorksList();
 }
