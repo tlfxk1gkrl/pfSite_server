@@ -24,7 +24,7 @@ public class WorksController {
 
     //create
     @PostMapping("/file/upload")
-    public boolean uploadFile(String title, String kind, String sub, List<MultipartFile> files) throws IllegalStateException, IOException {
+    public boolean uploadFile(String title, String kind, String sub, List<MultipartFile> files, String gitSub, String gitLink) throws IllegalStateException, IOException {
         String UPLOAD_PATH = "/home/ec2-user/src/" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
         WorksDTO worksDTO = new WorksDTO();
         try {
@@ -51,6 +51,8 @@ public class WorksController {
             worksDTO.setSub(sub);
             worksDTO.setImgLink(UPLOAD_PATH);
             worksDTO.setImgCnt(files.size());
+            worksDTO.setGitSub(gitSub);
+            worksDTO.setGitLink(gitLink);
 
 
         } catch (IOException e) {

@@ -7,7 +7,9 @@
         KIND,
         SUB,
         IMGLINK,
-        IMG_CNT
+        IMG_CNT,
+        GITSUB,
+        GITLINK
     </sql>
 
     <insert id="insertWorks" parameterType="worksDTO">
@@ -16,13 +18,17 @@
         KIND,
         SUB,
         IMGLINK,
-        IMG_CNT
+        IMG_CNT,
+        GITSUB,
+        GITLINK
         ) VALUES (
         #{title},
         #{kind},
         #{sub},
         #{imgLink},
         #{imgCnt}
+        #{gitSub},
+        #{gitLink}
         )
     </insert>
 
@@ -43,7 +49,9 @@
         KIND,
         SUB,
         IMGLINK,
-        IMG_CNT
+        IMG_CNT,
+        GITSUB,
+        GITLINK
         WHERE
         ID=#{id}
     </update>

@@ -12,4 +12,6 @@ public class WorksDTO {
     private String sub;
     private String imgLink;
     private Integer imgCnt;
+    private String gitSub;
+    private String gitLink;
 }
