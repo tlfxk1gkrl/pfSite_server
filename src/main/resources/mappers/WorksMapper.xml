@@ -30,7 +30,7 @@
         #{kind},
         #{sub},
         #{imgLink},
-        #{imgCnt}
+        #{imgCnt},
         #{gitSub},
         #{gitLink},
         #{titleJap},
