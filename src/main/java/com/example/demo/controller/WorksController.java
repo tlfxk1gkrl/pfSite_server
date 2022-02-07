@@ -24,12 +24,12 @@ public class WorksController {
 
     //create
     @PostMapping("/file/upload")
-    public boolean uploadFile(String title, String kind, String sub, List<MultipartFile> files, String gitSub, String gitLink) throws IllegalStateException, IOException {
+    public boolean uploadFile(String title, String kind, String sub, List<MultipartFile> files, String gitSub, String gitLink, String titleJap, String subJap) throws IllegalStateException, IOException {
         String UPLOAD_PATH = "/home/ec2-user/src/" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
         WorksDTO worksDTO = new WorksDTO();
         try {
             System.out.println((files.size()));
-            for (int i=0; i<files.size(); i++) {
+            for (int i = 0; i < files.size(); i++) {
                 String fileId = "" + i;
                 String originName = files.get(i).getOriginalFilename(); // ex) 파일.jpg
                 String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
@@ -53,6 +53,8 @@ public class WorksController {
             worksDTO.setImgCnt(files.size());
             worksDTO.setGitSub(gitSub);
             worksDTO.setGitLink(gitLink);
+            worksDTO.setTitleJap(titleJap);
+            worksDTO.setSubJap(subJap);
 
 
         } catch (IOException e) {
@@ -62,15 +64,16 @@ public class WorksController {
 
         return worksService.registerWorks(worksDTO);
     }
+
     //list
     @GetMapping("/file")
-    public List<Object> getFileList() throws IllegalStateException, IOException{
+    public List<Object> getFileList() throws IllegalStateException, IOException {
         return worksService.getWorksList();
     }
 
     //read
     @GetMapping("/file/{id}")
-    public WorksDTO getFile(@PathVariable("id") Integer id) throws IllegalStateException{
+    public WorksDTO getFile(@PathVariable("id") Integer id) throws IllegalStateException {
         return worksService.getWorksDetail(id);
     }
 
@@ -81,7 +84,7 @@ public class WorksController {
         String[] files = new File(DATA_DIRECTORY).list();
 
         InputStream imageStream = new FileInputStream(
-                DATA_DIRECTORY +"/"+ files[number]);
+                DATA_DIRECTORY + "/" + files[number]);
 
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int read;
