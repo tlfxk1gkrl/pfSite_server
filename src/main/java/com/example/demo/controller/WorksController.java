@@ -29,7 +29,6 @@ public class WorksController {
         String UPLOAD_PATH_JAP = "/home/ec2-user/src/" + new Date().getTime() +"_JAP";
         WorksDTO worksDTO = new WorksDTO();
         try {
-            System.out.println((files.size()));
             for (int i = 0; i < files.size(); i++) {
                 String fileId = "" + i;
                 String originName = files.get(i).getOriginalFilename(); // ex) 파일.jpg
@@ -48,17 +47,17 @@ public class WorksController {
             }
             for (int i = 0; i < filesJap.size(); i++) {
                 String fileId = "" + i;
-                String originName = files.get(i).getOriginalFilename(); // ex) 파일.jpg
+                String originName = filesJap.get(i).getOriginalFilename(); // ex) 파일.jpg
                 String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
                 originName = originName.substring(0, originName.lastIndexOf(".")); // ex) 파일
-                long fileSize = files.get(i).getSize(); // 파일 사이즈
+                long fileSize = filesJap.get(i).getSize(); // 파일 사이즈
 
                 File fileSave = new File(UPLOAD_PATH_JAP, fileId + "." + fileExtension); // ex) fileId.jpg
                 if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
                     fileSave.mkdirs();
                 }
 
-                files.get(i).transferTo(fileSave); // fileSave의 형태로 파일 저장
+                filesJap.get(i).transferTo(fileSave); // fileSave의 형태로 파일 저장
 
 //                files.get(i).transferTo(new File(files.get(i).getOriginalFilename()));
             }
