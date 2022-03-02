@@ -11,7 +11,8 @@
         GITSUB,
         GITLINK,
         TITLE_JAP,
-        SUB_JAP
+        SUB_JAP,
+        IMGLINK_JAP
     </sql>
 
     <insert id="insertWorks" parameterType="worksDTO">
@@ -24,7 +25,8 @@
         GITSUB,
         GITLINK,
         TITLE_JAP,
-        SUB_JAP
+        SUB_JAP,
+        IMGLINK_JAP
         ) VALUES (
         #{title},
         #{kind},
@@ -34,7 +36,8 @@
         #{gitSub},
         #{gitLink},
         #{titleJap},
-        #{subJap}
+        #{subJap},
+        #{imgLinkJap}
         )
     </insert>
 
@@ -59,7 +62,8 @@
         GITSUB,
         GITLINK,
         TITLE_JAP,
-        SUB_JAP
+        SUB_JAP,
+        IMGLINK_JAP
         WHERE
         ID=#{id}
     </update>
