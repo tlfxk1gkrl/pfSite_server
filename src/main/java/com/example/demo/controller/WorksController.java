@@ -24,7 +24,7 @@ public class WorksController {
 
     //create
     @PostMapping("/file/upload")
-    public boolean uploadFile(String title, String kind, String sub, List<MultipartFile> files, String gitSub, String gitLink, String titleJap, String subJap, List<MultipartFile> filesJap) throws IllegalStateException, IOException {
+    public boolean uploadFile(String title, String kind, String sub, List<MultipartFile> files, String gitSub, String gitLink, String titleJap, String subJap, List<MultipartFile> filesJap, String more) throws IllegalStateException, IOException {
         String UPLOAD_PATH = "/home/ec2-user/src/" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
         String UPLOAD_PATH_JAP = "/home/ec2-user/src/" + new Date().getTime() +"_JAP";
         WorksDTO worksDTO = new WorksDTO();
@@ -33,8 +33,8 @@ public class WorksController {
                 String fileId = "" + i;
                 String originName = files.get(i).getOriginalFilename(); // ex) 파일.jpg
                 String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
-                originName = originName.substring(0, originName.lastIndexOf(".")); // ex) 파일
-                long fileSize = files.get(i).getSize(); // 파일 사이즈
+//                originName = originName.substring(0, originName.lastIndexOf(".")); // ex) 파일
+//                long fileSize = files.get(i).getSize(); // 파일 사이즈
 
                 File fileSave = new File(UPLOAD_PATH, fileId + "." + fileExtension); // ex) fileId.jpg
                 if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
@@ -49,8 +49,8 @@ public class WorksController {
                 String fileId = "" + i;
                 String originName = filesJap.get(i).getOriginalFilename(); // ex) 파일.jpg
                 String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
-                originName = originName.substring(0, originName.lastIndexOf(".")); // ex) 파일
-                long fileSize = filesJap.get(i).getSize(); // 파일 사이즈
+//                originName = originName.substring(0, originName.lastIndexOf(".")); // ex) 파일
+//                long fileSize = filesJap.get(i).getSize(); // 파일 사이즈
 
                 File fileSave = new File(UPLOAD_PATH_JAP, fileId + "." + fileExtension); // ex) fileId.jpg
                 if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
@@ -72,7 +72,7 @@ public class WorksController {
             worksDTO.setGitLink(gitLink);
             worksDTO.setTitleJap(titleJap);
             worksDTO.setSubJap(subJap);
-
+            worksDTO.setMore(more);
 
         } catch (IOException e) {
             System.out.println(e);

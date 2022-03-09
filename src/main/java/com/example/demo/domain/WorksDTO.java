@@ -17,4 +17,5 @@ public class WorksDTO {
     private String titleJap;
     private String subJap;
     private String imgLinkJap;
+    private String more;
 }
