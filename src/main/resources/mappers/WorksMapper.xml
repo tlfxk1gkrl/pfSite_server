@@ -57,17 +57,17 @@
         UPDATE
         TB_WORKS
         SET
-        TITLE,
-        KIND,
-        SUB,
-        IMGLINK,
-        IMG_CNT,
-        GITSUB,
-        GITLINK,
-        TITLE_JAP,
-        SUB_JAP,
-        IMGLINK_JAP,
-        MORE
+        TITLE = #{title},
+        KIND = #{kind},
+        SUB = #{sub},
+        IMGLINK = #{imgLink},
+        IMG_CNT = #{imgCnt},
+        GITSUB = #{gitSub},
+        GITLINK = #{gitLink},
+        TITLE_JAP = #{titleJap},
+        SUB_JAP = #{subJap},
+        IMGLINK_JAP = #{imgLinkJap},
+        MORE = #{more}
         WHERE
         ID=#{id}
     </update>
