@@ -148,24 +148,26 @@ public class WorksController {
         String UPLOAD_PATH_JAP = worksDTO.getImgLinkJap() != null ? worksDTO.getImgLinkJap() : "/home/ec2-user/src/" + new Date().getTime() +"_JAP";
         try {
             for (int i = 0; i < files.size(); i++) {
-                String fileId = "" + i;
-                String originName = files.get(i).getOriginalFilename(); // ex) 파일.jpg
-                String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
+                if(!files.get(i).isEmpty()) {
+                    String fileId = "" + i;
+                    String originName = files.get(i).getOriginalFilename(); // ex) 파일.jpg
+                    String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
 //                originName = originName.substring(0, originName.lastIndexOf(".")); // ex) 파일
 //                long fileSize = files.get(i).getSize(); // 파일 사이즈
 
-                File fileSave = new File(UPLOAD_PATH, fileId + "." + fileExtension); // ex) fileId.jpg
-                if(fileSave.exists()){
-                    fileSave.delete();
+                    File fileSave = new File(UPLOAD_PATH, fileId + "." + fileExtension); // ex) fileId.jpg
+                    if (fileSave.exists()) {
+                        fileSave.delete();
+                    }
+                    fileSave.mkdirs();
+
+
+                    files.get(i).transferTo(fileSave); // fileSave의 형태로 파일 저장
                 }
-                fileSave.mkdirs();
-
-
-                files.get(i).transferTo(fileSave); // fileSave의 형태로 파일 저장
-
 //                files.get(i).transferTo(new File(files.get(i).getOriginalFilename()));
             }
             for (int i = 0; i < filesJap.size(); i++) {
+                if(!files.get(i).isEmpty()) {
                 String fileId = "" + i;
                 String originName = filesJap.get(i).getOriginalFilename(); // ex) 파일.jpg
                 String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
@@ -173,12 +175,12 @@ public class WorksController {
 //                long fileSize = filesJap.get(i).getSize(); // 파일 사이즈
 
                 File fileSave = new File(UPLOAD_PATH_JAP, fileId + "." + fileExtension); // ex) fileId.jpg
-                if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
-                    fileSave.mkdirs();
+                if (fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
+                    fileSave.delete();
                 }
-
+                    fileSave.mkdirs();
                 filesJap.get(i).transferTo(fileSave); // fileSave의 형태로 파일 저장
-
+                }
 //                files.get(i).transferTo(new File(files.get(i).getOriginalFilename()));
             }
             worksDTO.setTitle(title);
