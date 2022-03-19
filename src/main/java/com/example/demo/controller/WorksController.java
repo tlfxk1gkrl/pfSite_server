@@ -185,6 +185,7 @@ public class WorksController {
             worksDTO.setSub(sub);
             worksDTO.setSubJap(subJap);
             worksDTO.setImgLinkJap(UPLOAD_PATH_JAP);
+            worksDTO.setImgCnt(files.size());
 
         } catch (IOException e) {
             System.out.println(e);
