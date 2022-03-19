@@ -142,7 +142,8 @@ public class WorksController {
 
     //update
     @PostMapping("file/{id}")
-    public boolean updateFile(@PathVariable("id") Integer id, WorksDTO worksDTO,List<MultipartFile> files, List<MultipartFile> filesJap) throws IllegalStateException, IOException {
+    public boolean updateFile(@PathVariable("id") Integer id, String title, String kind, String sub, List<MultipartFile> files, String titleJap, String subJap, List<MultipartFile> filesJap) throws IllegalStateException, IOException {
+        WorksDTO worksDTO = worksService.getWorksDetail(id);
         String UPLOAD_PATH = worksDTO.getImgLink(); // 업로드 할 위치 // 현재 날짜 값 폴더
         String UPLOAD_PATH_JAP = worksDTO.getImgLinkJap() != null ? worksDTO.getImgLinkJap() : "/home/ec2-user/src/" + new Date().getTime() +"_JAP";
         try {
@@ -178,7 +179,11 @@ public class WorksController {
 
 //                files.get(i).transferTo(new File(files.get(i).getOriginalFilename()));
             }
-
+            worksDTO.setTitle(title);
+            worksDTO.setKind(kind);
+            worksDTO.setTitleJap(titleJap);
+            worksDTO.setSub(sub);
+            worksDTO.setSubJap(subJap);
             worksDTO.setImgLinkJap(UPLOAD_PATH_JAP);
 
         } catch (IOException e) {
