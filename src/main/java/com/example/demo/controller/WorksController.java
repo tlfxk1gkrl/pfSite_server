@@ -26,7 +26,7 @@ public class WorksController {
     @PostMapping("/file/upload")
     public boolean uploadFile(String title, String kind, String sub, List<MultipartFile> files, String gitSub, String gitLink, String titleJap, String subJap, List<MultipartFile> filesJap, String more) throws IllegalStateException, IOException {
         String UPLOAD_PATH = "/home/ec2-user/src/" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
-        String UPLOAD_PATH_JAP = "/home/ec2-user/src/" + new Date().getTime() +"_JAP";
+        String UPLOAD_PATH_JAP = "/home/ec2-user/src/" + new Date().getTime() + "_JAP";
         WorksDTO worksDTO = new WorksDTO();
         try {
             for (int i = 0; i < files.size(); i++) {
@@ -116,6 +116,7 @@ public class WorksController {
 
         return new ResponseEntity<byte[]>(targetArray, HttpStatus.OK);
     }
+
     //read img JAP
     @GetMapping(value = "file/jap/{id}/{number}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> userSearchJAP(@PathVariable("id") Integer id, @PathVariable("number") Integer number) throws IOException {
@@ -144,42 +145,39 @@ public class WorksController {
     @PostMapping("file/{id}")
     public boolean updateFile(@PathVariable("id") Integer id, String title, String kind, String sub, List<MultipartFile> files, String titleJap, String subJap, List<MultipartFile> filesJap) throws IllegalStateException, IOException {
         WorksDTO worksDTO = worksService.getWorksDetail(id);
-        String UPLOAD_PATH = worksDTO.getImgLink(); // 업로드 할 위치 // 현재 날짜 값 폴더
-        String UPLOAD_PATH_JAP = worksDTO.getImgLinkJap() != null ? worksDTO.getImgLinkJap() : "/home/ec2-user/src/" + new Date().getTime() +"_JAP";
+        String UPLOAD_PATH = "/home/ec2-user/src/" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
+        String UPLOAD_PATH_JAP = "/home/ec2-user/src/" + new Date().getTime() + "_JAP";
         try {
             for (int i = 0; i < files.size(); i++) {
-                if(!files.get(i).isEmpty()) {
+                if (!files.get(i).isEmpty()) {
                     String fileId = "" + i;
-                    String originName = files.get(i).getOriginalFilename(); // ex) 파일.jpg
+                    String originName = files.get(i).getOriginalFilename();
                     String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
 //                originName = originName.substring(0, originName.lastIndexOf(".")); // ex) 파일
 //                long fileSize = files.get(i).getSize(); // 파일 사이즈
 
                     File fileSave = new File(UPLOAD_PATH, fileId + "." + fileExtension); // ex) fileId.jpg
-                    if (fileSave.exists()) {
-                        fileSave.delete();
+                    if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
+                        fileSave.mkdirs();
                     }
-                    fileSave.mkdirs();
-
 
                     files.get(i).transferTo(fileSave); // fileSave의 형태로 파일 저장
                 }
 //                files.get(i).transferTo(new File(files.get(i).getOriginalFilename()));
             }
             for (int i = 0; i < filesJap.size(); i++) {
-                if(!files.get(i).isEmpty()) {
-                String fileId = "" + i;
-                String originName = filesJap.get(i).getOriginalFilename(); // ex) 파일.jpg
-                String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
+                if (!files.get(i).isEmpty()) {
+                    String fileId = "" + i;
+                    String originName = filesJap.get(i).getOriginalFilename(); // ex) 파일.jpg
+                    String fileExtension = originName.substring(originName.lastIndexOf(".") + 1); // ex) jpg
 //                originName = originName.substring(0, originName.lastIndexOf(".")); // ex) 파일
 //                long fileSize = filesJap.get(i).getSize(); // 파일 사이즈
 
-                File fileSave = new File(UPLOAD_PATH_JAP, fileId + "." + fileExtension); // ex) fileId.jpg
-                if (fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
-                    fileSave.delete();
-                }
-                    fileSave.mkdirs();
-                filesJap.get(i).transferTo(fileSave); // fileSave의 형태로 파일 저장
+                    File fileSave = new File(UPLOAD_PATH_JAP, fileId + "." + fileExtension); // ex) fileId.jpg
+                    if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
+                        fileSave.mkdirs();
+                    }
+                    filesJap.get(i).transferTo(fileSave); // fileSave의 형태로 파일 저장
                 }
 //                files.get(i).transferTo(new File(files.get(i).getOriginalFilename()));
             }
@@ -188,6 +186,7 @@ public class WorksController {
             worksDTO.setTitleJap(titleJap);
             worksDTO.setSub(sub);
             worksDTO.setSubJap(subJap);
+            worksDTO.setImgLink(UPLOAD_PATH);
             worksDTO.setImgLinkJap(UPLOAD_PATH_JAP);
             worksDTO.setImgCnt(files.size());
 
