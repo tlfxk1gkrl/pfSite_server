@@ -97,7 +97,7 @@ public class WorksController {
     //read img
     @GetMapping(value = "/file/test/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<List<byte[]>> test(@PathVariable("id") Integer id) throws IOException {
-        ArrayList<byte[]> fileList = new ArrayList<byte[]>();
+        List<byte[]> fileList = new ArrayList<byte[]>();
         String DATA_DIRECTORY = worksService.getWorksDetail(id).getImgLink();
         String[] files = new File(DATA_DIRECTORY).list();
 
@@ -118,7 +118,7 @@ public class WorksController {
 //		InputStream imageStream = new FileInputStream("/home/ubuntu/images/feed/" + imagename);
 
         }
-        return new ResponseEntity<>(fileList, HttpStatus.OK);
+        return ResponseEntity.ok(fileList);
     }
 
     //read img
