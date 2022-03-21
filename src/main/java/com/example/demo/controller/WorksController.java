@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.WorksDTO;
 import com.example.demo.service.WorksService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -95,7 +96,7 @@ public class WorksController {
     }
 
     //read img
-    @GetMapping(value = "/file/test/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/file/test/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<byte[]>> test(@PathVariable("id") Integer id) throws IOException {
         List<byte[]> fileList = new ArrayList<byte[]>();
         String DATA_DIRECTORY = worksService.getWorksDetail(id).getImgLink();
@@ -118,6 +119,7 @@ public class WorksController {
 //		InputStream imageStream = new FileInputStream("/home/ubuntu/images/feed/" + imagename);
 
         }
+        HttpHeaders headers = new HttpHeaders();
         return ResponseEntity.ok(fileList);
     }
 
