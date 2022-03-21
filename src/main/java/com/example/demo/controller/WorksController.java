@@ -93,6 +93,32 @@ public class WorksController {
     public WorksDTO getFile(@PathVariable("id") Integer id) throws IllegalStateException {
         return worksService.getWorksDetail(id);
     }
+    //read img
+    @GetMapping(value = "file/test/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<List<byte[]>> test(@PathVariable("id") Integer id) throws IOException {
+        List<byte[]> fileList = null;
+        String DATA_DIRECTORY = worksService.getWorksDetail(id).getImgLink();
+        String[] files = new File(DATA_DIRECTORY).list();
+
+        for(int i=0; i<files.length; i++) {
+            InputStream imageStream = new FileInputStream(
+                    DATA_DIRECTORY + "/" + files[i]);
+
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int read;
+            byte[] imageByteArray = new byte[imageStream.available()];
+            while ((read = imageStream.read(imageByteArray, 0, imageByteArray.length)) != -1) {
+                buffer.write(imageByteArray, 0, read);
+            }
+            buffer.flush();
+            byte[] array = buffer.toByteArray();
+            imageStream.close();
+            fileList.add(array);
+//		InputStream imageStream = new FileInputStream("/home/ubuntu/images/feed/" + imagename);
+
+        }
+        return new ResponseEntity<List<byte[]>>(fileList, HttpStatus.OK);
+    }
 
     //read img
     @GetMapping(value = "file/{id}/{number}", produces = MediaType.IMAGE_JPEG_VALUE)
