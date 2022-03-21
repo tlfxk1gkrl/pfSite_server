@@ -96,7 +96,7 @@ public class WorksController {
     }
 
     //read img
-    @GetMapping(value = "/file/test/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/file/test/{id}", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<List<byte[]>> test(@PathVariable("id") Integer id) throws IOException {
         List<byte[]> fileList = new ArrayList<byte[]>();
         String DATA_DIRECTORY = worksService.getWorksDetail(id).getImgLink();
