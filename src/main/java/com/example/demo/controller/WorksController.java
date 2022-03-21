@@ -93,6 +93,7 @@ public class WorksController {
     public WorksDTO getFile(@PathVariable("id") Integer id) throws IllegalStateException {
         return worksService.getWorksDetail(id);
     }
+
     //read img
     @GetMapping(value = "file/test/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<List<byte[]>> test(@PathVariable("id") Integer id) throws IOException {
@@ -117,7 +118,7 @@ public class WorksController {
 //		InputStream imageStream = new FileInputStream("/home/ubuntu/images/feed/" + imagename);
 
         }
-        return new ResponseEntity<List<byte[]>>(fileList, HttpStatus.OK);
+        return new ResponseEntity<>(fileList, HttpStatus.OK);
     }
 
     //read img
