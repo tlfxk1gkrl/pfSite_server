@@ -95,7 +95,7 @@ public class WorksController {
     }
 
     //read img
-    @GetMapping(value = "file/test/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/file/test/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<List<byte[]>> test(@PathVariable("id") Integer id) throws IOException {
         List<byte[]> fileList = null;
         String DATA_DIRECTORY = worksService.getWorksDetail(id).getImgLink();
